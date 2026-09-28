@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Maher Demo | المنصة السحابية المتقدمة لإدارة الأكاديميات</title>
+    <!-- Google Fonts: Tajawal for Arabic & Plus Jakarta Sans for English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0e3b43',
+                        accent: '#00b4d8',
+                        successMint: '#10b981',
+                        surfaceLight: '#F4F6F8',
+                        surfaceCard: '#ffffff',
+                    },
+                    fontFamily: {
+                        arabic: ['Tajawal', 'sans-serif'],
+                        english: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #F4F6F8;
+            color: #1e293b;
+            overflow-x: hidden;
+            background-image: radial-gradient(rgba(14, 59, 67, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(14, 59, 67, 0.08);
+        }
+        .glow-accent {
+            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surfaceLight font-arabic antialiased selection:bg-successMint selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <nav class="sticky top-0 z-50 glass-card border-b border-gray-200/60 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo & Name -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="h-11 w-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden shadow-inner group-hover:scale-105 transition-transform p-1">
+                    <!-- Vector SVG Logo (Book & Neural Nodes) -->
+                    <svg viewBox="0 0 100 100" class="w-full h-full text-primary" fill="currentColor">
+                        <path d="M50 15C35 15 20 22 10 30V85C25 78 38 75 50 75C62 75 75 78 90 85V30C80 22 65 15 50 15ZM50 22C61 22 72 26.5 82 32.5V78C70 72 59 70 50 70C41 70 30 72 18 78V32.5C28 26.5 39 22 50 22Z" opacity="0.85"/>
+                        <circle cx="35" cy="45" r="5" fill="#10b981"/>
+                        <circle cx="50" cy="35" r="5" fill="#10b981"/>
+                        <circle cx="65" cy="48" r="5" fill="#10b981"/>
+                        <path d="M35 45L50 35L65 48" stroke="#10b981" stroke-width="3" fill="none"/>
+                        <path d="M40 55L50 35" stroke="#10b981" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold text-primary tracking-tight font-english block leading-tight">Al-Maher Demo</span>
+                    <span class="text-[10px] text-gray-500 font-medium block">Enterprise Edition v2.4</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links (Desktop) -->
+            <div class="hidden lg:flex items-center gap-8 font-medium text-sm text-gray-600">
+                <a href="#features" class="hover:text-primary transition-colors">مميزات النظام</a>
+                <a href="#dashboards" class="hover:text-primary transition-colors">لوحات التحكم</a>
+                <a href="#gamification" class="hover:text-primary transition-colors">التلعيب والتحفيز</a>
+                <a href="#tech" class="hover:text-primary transition-colors">البنية التقنية</a>
+                <a href="#contact" class="hover:text-primary transition-colors">اتصل بنا</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/201126056703" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-successMint hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md shadow-emerald-500/20 transition-all hover:-translate-y-0.5">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>اطلب الديمو الآن</span>
+                </a>
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="lg:hidden text-primary p-2 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden glass-card border-t border-gray-200 px-4 pt-3 pb-5 space-y-3">
+            <a href="#features" class="block text-gray-700 font-medium py-1.5 hover:text-primary">مميزات النظام</a>
+            <a href="#dashboards" class="block text-gray-700 font-medium py-1.5 hover:text-primary">لوحات التحكم</a>
+            <a href="#gamification" class="block text-gray-700 font-medium py-1.5 hover:text-primary">التلعيب والتحفيز</a>
+            <a href="#tech" class="block text-gray-700 font-medium py-1.5 hover:text-primary">البنية التقنية</a>
+            <a href="#contact" class="block text-gray-700 font-medium py-1.5 hover:text-primary">اتصل بنا</a>
+            <div class="pt-2">
+                <a href="https://wa.me/201126056703" target="_blank" class="w-full flex items-center justify-center gap-2 bg-successMint text-white px-5 py-3 rounded-xl font-bold text-sm shadow-md">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>تواصل واتساب مباشر</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-16 pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <!-- Branding Badge with SVG Logo -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-6 shadow-sm">
+                    <svg viewBox="0 0 100 100" class="w-4 h-4 text-primary" fill="currentColor">
+                        <path d="M50 15C35 15 20 22 10 30V85C25 78 38 75 50 75C62 75 75 78 90 85V30C80 22 65 15 50 15Z"/>
+                    </svg>
+                    <span>المنصة السحابية المعتمدة لإدارة المؤسسات القرآنية والتعليمية</span>
+                </div>
+
+                <!-- Balanced Heading with proper responsive wrapping -->
+                <h1 class="text-3xl sm:text-5xl font-black text-primary tracking-tight leading-[1.3] mb-6 max-w-3xl mx-auto">
+                    انقل أكاديميتك التعليمية إلى عصر <span class="text-successMint underline decoration-wavy decoration-emerald-400/40">الأتمتة الكاملة</span> مع Al-Maher Demo
+                </h1>
+
+                <p class="text-base sm:text-lg text-gray-600 font-medium leading-relaxed mb-10 max-w-3xl mx-auto">
+                    المنصة السحابية المتكاملة لأتمتة الحلقات، الرواتب الدقيقة بالثانية، اشتراكات الطلاب، والفصول التفاعلية بمعايير حوكمة مالية 100% وبملكيتك الكاملة (<span class="font-bold text-primary font-english">White-Label</span>).
+                </p>
+
+                <!-- CTA Actions -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://wa.me/201126056703" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-successMint hover:bg-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-base shadow-xl glow-accent transition-all hover:-translate-y-1">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span>تواصل واتساب مباشر</span>
+                    </a>
+                    <a href="#dashboards" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-primary border border-gray-300/80 px-8 py-4 rounded-2xl font-bold text-base shadow-sm transition-all hover:-translate-y-1">
+                        <i class="fa-solid fa-compass text-primary"></i>
+                        <span>استكشف لوحات التحكم</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Interactive Preview Mockup -->
+            <div class="mt-16 max-w-5xl mx-auto">
+                <div class="glass-card p-3 sm:p-5 rounded-3xl shadow-2xl border border-gray-200">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-200 px-2">
+                        <div class="flex items-center gap-2">
+                            <div class="h-3 w-3 rounded-full bg-red-400"></div>
+                            <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
+                            <div class="h-3 w-3 rounded-full bg-emerald-400"></div>
+                        </div>
+                        <div class="text-xs font-bold text-gray-500 bg-gray-100 px-4 py-1 rounded-full">
+                            Al-Maher System - لوحة التحكم التفاعلية
+                        </div>
+                        <div class="text-successMint text-xs font-bold flex items-center gap-1.5">
+                            <span class="h-2 w-2 rounded-full bg-successMint animate-ping"></span>
+                            النظام يعمل بكفاءة
+                        </div>
+                    </div>
+                    <!-- Mockup Body -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                        <div class="bg-primary text-white p-5 rounded-2xl shadow-md">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-emerald-300 font-bold">إدارة الطلاب</span>
+                                <i class="fa-solid fa-users text-emerald-300"></i>
+                            </div>
+                            <h3 class="text-2xl font-black mb-1">15 طالب</h3>
+                            <p class="text-xs text-gray-300">نشط بالأكاديمية بانتظام</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-primary font-bold">الكوادر التعليمية</span>
+                                <i class="fa-solid fa-chalkboard-user text-primary"></i>
+                            </div>
+                            <h3 class="text-2xl font-black text-primary mb-1">6 معلم</h3>
+                            <p class="text-xs text-gray-500">في الخدمة والحلقات الحية</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-successMint font-bold">الحوكمة المالية</span>
+                                <i class="fa-solid fa-shield-halved text-successMint"></i>
+                            </div>
+                            <h3 class="text-2xl font-black text-successMint mb-1">0% خطأ</h3>
+                            <p class="text-xs text-gray-500">في مسيرات الرواتب الدقيقة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 2: Pain vs Solution -->
+    <section id="features" class="py-20 bg-white/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-successMint font-bold text-sm tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">المقارنة الجذرية</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-primary mt-3 mb-4">وداعاً للفوضى الإدارية واهدار الأوقات</h2>
+                <p class="text-gray-600 text-base">اكتشف الفرق الهائل بين ضغوط العمل اليدوي التقليدي وبين قوة الأتمتة الذكية مع Al-Maher Demo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Traditional Chaos -->
+                <div class="bg-red-50/50 border border-red-200/60 p-8 rounded-3xl shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
+                        الطريقة التقليدية (WhatsApp & Excel)
+                    </div>
+                    <div class="flex items-center gap-3 mb-6 mt-2">
+                        <div class="h-12 w-12 rounded-2xl bg-red-100 text-red-500 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-red-900">نزيف إداري ومالي مستمر</h3>
+                            <p class="text-xs text-red-600">مخاطر عالية وضياع لمجهود المعلمين</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 text-gray-700 text-sm font-medium">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1"></i>
+                            <span>احتساب ساعات غير منجزة وصعوبة التحقق من حضور المعلم بدقة.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1"></i>
+                            <span>ضياع مئات الساعات شهرياً في مطابقة الحصص وجداول الرواتب يدوياً.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1"></i>
+                            <span>استمرار حضور الطلاب بعد نفاد باقاتهم دون تجديد أو قفل آلي.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1"></i>
+                            <span>تشتت أولياء الأمور عبر مجموعات الواتساب وغياب التقارير الموثقة.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Al-Maher Smart Solution -->
+                <div class="bg-emerald-50/40 border border-emerald-200/60 p-8 rounded-3xl shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-successMint text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
+                        الحل الثوري مع Al-Maher Demo
+                    </div>
+                    <div class="flex items-center gap-3 mb-6 mt-2">
+                        <div class="h-12 w-12 rounded-2xl bg-emerald-100 text-successMint flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-shield-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-emerald-950">حوْكمة كاملة وأمان مالي</h3>
+                            <p class="text-xs text-emerald-700">كفاءة تشغيلية تصل إلى 100%</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 text-gray-700 text-sm font-medium">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-successMint mt-1"></i>
+                            <span>أمان مالي صارم واحتساب دقيق للرواتب بالدقيقة ومنع تكرار الصرف تماماً.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-successMint mt-1"></i>
+                            <span>نظام تجديد وقفل آلي: إيقاف الحساب فور نفاد الرصيد وتنشيطه آلياً عند الاعتماد.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-successMint mt-1"></i>
+                            <span>محفظة رصيد منفصلة لكل مادة مع ميزة الترحيل التراكمي (Smart Rollover Engine).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-successMint mt-1"></i>
+                            <span>بوابة ولي الأمر الذكية مع خاصية "التبديل بنقرة واحدة" بين الأبناء المتعددين.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Impact Metrics -->
+    <section class="py-16 bg-primary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-2xl sm:text-3xl font-extrabold mb-3">أرقام وعوائد حقيقية يحققها النظام</h2>
+                <p class="text-gray-300 text-sm">نتائج مثبتة ميدانياً في إدارة الأكاديميات القرآنية والتعليمية الكبرى.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Metric 1 -->
+                <div class="glass-card bg-white/5 border-white/10 p-6 rounded-2xl text-center">
+                    <div class="text-4xl sm:text-5xl font-black text-successMint font-english mb-2">90%</div>
+                    <div class="text-sm font-bold text-white mb-1">توفير الوقت والجهد</div>
+                    <p class="text-xs text-gray-300">في الأعمال الإدارية والمطابقات اليدوية</p>
+                </div>
+                <!-- Metric 2 -->
+                <div class="glass-card bg-white/5 border-white/10 p-6 rounded-2xl text-center">
+                    <div class="text-4xl sm:text-5xl font-black text-successMint font-english mb-2">0%</div>
+                    <div class="text-sm font-bold text-white mb-1">نسبة الخطأ المالي</div>
+                    <p class="text-xs text-gray-300">في مسيرات الرواتب وساعات المعلمين</p>
+                </div>
+                <!-- Metric 3 -->
+                <div class="glass-card bg-white/5 border-white/10 p-6 rounded-2xl text-center">
+                    <div class="text-4xl sm:text-5xl font-black text-successMint font-english mb-2">+35%</div>
+                    <div class="text-sm font-bold text-white mb-1">نمو تحصيل الاشتراكات</div>
+                    <p class="text-xs text-gray-300">عبر بوابات الدفع والتجديد الآلي</p>
+                </div>
+                <!-- Metric 4 -->
+                <div class="glass-card bg-white/5 border-white/10 p-6 rounded-2xl text-center">
+                    <div class="text-4xl sm:text-5xl font-black text-successMint font-english mb-2">48%</div>
+                    <div class="text-sm font-bold text-white mb-1">استبقاء والتزام الطلاب</div>
+                    <p class="text-xs text-gray-300">بفضل نظام التلعيب والتحفيز المستمر</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Multi-Role Dashboards (Interactive Showcase) -->
+    <section id="dashboards" class="py-20 bg-surfaceLight">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-successMint font-bold text-sm tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">المنظومة المتكاملة</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-primary mt-3 mb-4">جولة في لوحات التحكم المتعددة</h2>
+                <p class="text-gray-600 text-base">مصممة خصيصاً لتلبي احتياجات كل مستخدم في الأكاديمية بسلاسة وأمان تام.</p>
+
+                <!-- Tabs Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+                    <button onclick="switchTab('admin')" id="btn-admin" class="tab-btn px-6 py-3 rounded-xl font-bold text-sm transition-all bg-primary text-white shadow-md">
+                        <i class="fa-solid fa-user-shield ml-2"></i> الإدارة العليا والحسابات
+                    </button>
+                    <button onclick="switchTab('teacher')" id="btn-teacher" class="tab-btn px-6 py-3 rounded-xl font-bold text-sm transition-all bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">
+                        <i class="fa-solid fa-chalkboard-user ml-2"></i> المشرف والمعلم
+                    </button>
+                    <button onclick="switchTab('parent')" id="btn-parent" class="tab-btn px-6 py-3 rounded-xl font-bold text-sm transition-all bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">
+                        <i class="fa-solid fa-users ml-2"></i> ولي الأمر والطالب
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="max-w-5xl mx-auto">
+                <!-- Admin Tab Content -->
+                <div id="content-admin" class="tab-content glass-card p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-200">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <span class="text-xs font-bold text-successMint bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">لوحة المدير المعتمدة</span>
+                            <h3 class="text-2xl font-black text-primary mt-3 mb-4">أتمتة الرواتب بالثانية والدقيقة وحوكمة الإيصالات</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                تحكم كامل في العمليات الأكاديمية والمالية مع منع الهدر المالي بنسبة 100%. احتساب مستحقات المعلمين بناءً على ساعات العمل الفعلية، وأرشيف تحويلات برقم مرجعي فريد لمنع المطالبات المزدوجة نهائياً.
+                            </p>
+                            <ul class="space-y-3 text-sm font-medium text-gray-700">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> مركز اعتماد الإيصالات السريع (بنكي وفودافون كاش)</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> سياسة الغياب الذكية (Zero-Loss) لحفظ حقوق المعلم</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> تصدير تقارير مسيرات الرواتب إلى Excel بضغطة زر</li>
+                            </ul>
+                        </div>
+                        <div class="bg-primary/5 p-6 rounded-2xl border border-primary/10">
+                            <div class="text-xs font-bold text-gray-500 mb-3 flex items-center justify-between">
+                                <span>نموذج كشف الرواتب التلقائي</span>
+                                <span class="text-successMint font-english">v2.4 Live</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded-xl shadow-xs flex items-center justify-between text-xs">
+                                    <span class="font-bold text-primary">الشيخ / أحمد المنشاوي</span>
+                                    <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">EGP 2,940</span>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl shadow-xs flex items-center justify-between text-xs">
+                                    <span class="font-bold text-primary">الشيخ / محمود عبد الباسط</span>
+                                    <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">EGP 4,800</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teacher Tab Content -->
+                <div id="content-teacher" class="tab-content hidden glass-card p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-200">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <span class="text-xs font-bold text-successMint bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">بوابة المعلم والمشرف</span>
+                            <h3 class="text-2xl font-black text-primary mt-3 mb-4">فصول افتراضية متصلة ودفتر تسميع ذكي</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                أدوات رقمية متطورة تساند المعلم والمشرف في ضبط سير الحلقات القرآنية بجودة استثنائية مع روابط مباشرة لـ Google Meet و Zoom تفتح بنقرة زر واحدة.
+                            </p>
+                            <ul class="space-y-3 text-sm font-medium text-gray-700">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> متابعة الحلقات الحية ونسبة الحضور في الوقت الفعلي</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> تسجيل السورة، الآيات، وتقييمات الأداء الصوتي</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> محفظة مستحقات المعلم الشفافة لحظياً</li>
+                            </ul>
+                        </div>
+                        <div class="bg-primary/5 p-6 rounded-2xl border border-primary/10">
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-xl shadow-xs">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-primary">حلقة سورة البقرة</span>
+                                        <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded font-bold">جاري الآن</span>
+                                    </div>
+                                    <a href="#" class="inline-flex items-center gap-2 bg-successMint text-white px-4 py-2 rounded-xl text-xs font-bold w-full justify-center">
+                                        <i class="fa-solid fa-video"></i> فتح رابط Google Meet
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parent Tab Content -->
+                <div id="content-parent" class="tab-content hidden glass-card p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-200">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <span class="text-xs font-bold text-successMint bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">بوابة ولي الأمر الذكية</span>
+                            <h3 class="text-2xl font-black text-primary mt-3 mb-4">التبديل بنقرة واحدة بين الأبناء المتعددين</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                حل مبتكر ينهي معاناة تسجيل الخروج والدخول المتكرر للأسر التي لديها أكثر من ابن في الأكاديمية (أحمد، مريم، يوسف)، مع عداد حصص دقيق ومحفظة تعدد المواد.
+                            </p>
+                            <ul class="space-y-3 text-sm font-medium text-gray-700">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> التبديل المباشر (One-Click Switcher) بين ملفات الأبناء</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> تجديد باقة الأسرة دفعة واحدة برفع إيصال مجمع</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-successMint"></i> ميزة الترحيل التراكمي للحصص (Smart Rollover Engine)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-primary/5 p-6 rounded-2xl border border-primary/10">
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-xl shadow-xs flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-gray-500 block">الملف النشط حالياً</span>
+                                        <span class="font-bold text-primary text-sm">أنس هاني (10 سنوات)</span>
+                                    </div>
+                                    <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-bold">12 من 12 حصة</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Gamification & Behavioral Motivation -->
+    <section id="gamification" class="py-20 bg-white/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-successMint font-bold text-sm tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">التلعيب والتحفيز السلوكي</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-primary mt-3 mb-4">تحويل الحفظ إلى رحلة إنجاز وشغف تنافسي</h2>
+                <p class="text-gray-600 text-base">نظام تحفيزي ذكي يبقي الطلاب مرتبطين بالأكاديمية لسنوات طويلة.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-3xl shadow-sm border border-gray-200">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-xl font-bold mb-6">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-primary mb-3">النقاط والشارات التلقائية</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        منح نقاط فورية عند تقييم الحصة (درجة ممتاز = 50 نقطة)، ونقاط إضافية يمنحها المشرف للتفوق والأخلاق.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl shadow-sm border border-gray-200">
+                    <div class="h-12 w-12 rounded-2xl bg-successMint/10 text-successMint flex items-center justify-center text-xl font-bold mb-6">
+                        <i class="fa-solid fa-ranking-star"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-primary mb-3">لوحة الشرف الشهرية</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        قائمة متصدرين تنافسية تظهر أفضل 10 طلاب في الأكاديمية لبث روح التنافس الشريف والإقبال على حفظ القرآن.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl shadow-sm border border-gray-200">
+                    <div class="h-12 w-12 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center text-xl font-bold mb-6">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-primary mb-3">متجر المكافآت والشهادات</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        استبدال النقاط بكوبونات خصم على التجديد، مع نظام آلي لتوليد وتصميم شهادات الشكر والتقدير بضغطة زر.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Technical Power -->
+    <section id="tech" class="py-20 bg-surfaceLight">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-successMint font-bold text-sm tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">الهندسة التقنية والأمان</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-primary mt-3 mb-4">قوة وصلابة برمجية بمعايير المؤسسات الكبرى</h2>
+                <p class="text-gray-600 text-base">مبنية على أحدث تقنيات الويب لضمان السرعة المطلقة والحماية القصوى.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="text-successMint text-2xl font-bold mb-3"><i class="fa-solid fa-bolt"></i></div>
+                    <h4 class="font-extrabold text-primary mb-1">19 جدولاً مخصصاً</h4>
+                    <p class="text-xs text-gray-500">استجابة فائقة السرعة تقل عن 0.4 ثانية.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="text-successMint text-2xl font-bold mb-3"><i class="fa-solid fa-lock"></i></div>
+                    <h4 class="font-extrabold text-primary mb-1">صلاحيات صارمة (RBAC)</h4>
+                    <p class="text-xs text-gray-500">عزل تام وحماية قصوى ضد التلاعب.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="text-successMint text-2xl font-bold mb-3"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h4 class="font-extrabold text-primary mb-1">متجاوب بالكامل</h4>
+                    <p class="text-xs text-gray-500">تصميم Mobile-First سلس على كافة الأجهزة.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="text-successMint text-2xl font-bold mb-3"><i class="fa-solid fa-brain"></i></div>
+                    <h4 class="font-extrabold text-primary mb-1">العلامة البيضاء (White-Label)</h4>
+                    <p class="text-xs text-gray-500">اسمك، شعارك، ونطاقك الخاص بالكامل.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer & Contact -->
+    <footer id="contact" class="bg-primary text-white pt-16 pb-12 border-t border-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1: Brand with SVG Logo -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center overflow-hidden p-1">
+                            <svg viewBox="0 0 100 100" class="w-full h-full text-emerald-300" fill="currentColor">
+                                <path d="M50 15C35 15 20 22 10 30V85C25 78 38 75 50 75C62 75 75 78 90 85V30C80 22 65 15 50 15Z"/>
+                            </svg>
+                        </div>
+                        <span class="text-lg font-extrabold font-english">Al-Maher Demo</span>
+                    </div>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        المنصة السحابية المتكاملة لأتمتة الحلقات القرآنية والأكاديميات التعليمية بأعلى معايير الحوكمة والملكيتك الكاملة.
+                    </p>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-emerald-400 mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li><a href="#features" class="hover:text-white transition-colors">مميزات النظام</a></li>
+                        <li><a href="#dashboards" class="hover:text-white transition-colors">لوحات التحكم</a></li>
+                        <li><a href="#gamification" class="hover:text-white transition-colors">التلعيب والتحفيز</a></li>
+                        <li><a href="#tech" class="hover:text-white transition-colors">البنية التقنية</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact Info -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-emerald-400 mb-4">تواصل معنا</h4>
+                    <ul class="space-y-3 text-xs text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-successMint text-base"></i>
+                            <span class="font-english" dir="ltr">01126056703</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-successMint text-base"></i>
+                            <span class="font-english">samsam01014965155@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Direct Action -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-emerald-400 mb-4">ابدأ التجربة</h4>
+                    <p class="text-xs text-gray-300 mb-4">احصل على نسختك التجريبية وتواصل مع فريق الدعم الفني فوراً.</p>
+                    <a href="https://wa.me/201126056703" target="_blank" class="inline-flex items-center justify-center gap-2 bg-successMint hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold w-full shadow-md transition-all">
+                        <i class="fa-brands fa-whatsapp"></i> محادثة واتساب فورية
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400">
+                <p>© 2026 Al-Maher Demo. جميع الحقوق محفوظة.</p>
+                <div class="flex items-center gap-4 mt-4 sm:mt-0">
+                    <a href="https://www.facebook.com/profile.php?id=61594994276170" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="https://wa.me/201126056703" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JS Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dashboard Tabs Switcher
+        function switchTab(role) {
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-primary', 'text-white', 'shadow-md');
+                el.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+            });
+
+            document.getElementById('content-' + role).classList.remove('hidden');
+            
+            const activeBtn = document.getElementById('btn-' + role);
+            activeBtn.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+            activeBtn.classList.add('bg-primary', 'text-white', 'shadow-md');
+        }
+    </script>
+</body>
+</html>
